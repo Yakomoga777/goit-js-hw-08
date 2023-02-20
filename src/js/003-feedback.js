@@ -33,10 +33,8 @@ function onFormSubmit(event) {
 function onFormInput(event) {
   const email = refs.emailEl.value;
   const message = refs.textareaEl.value;
-
   // console.log('email - ', email);
   // console.log('message - ', message);
-
   localStorage.setItem(
     'feedback-form-state',
     JSON.stringify({
