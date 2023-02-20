@@ -63,6 +63,7 @@ function onTextareaKeypress(event) {
   //   console.log(message);
   //   localStorage.setItem('feedback-msg', message);
   //   console.log(event);
+  //   console.log(event);
 }
 
 function populateTextarea(event) {
