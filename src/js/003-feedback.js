@@ -21,8 +21,8 @@ const parsedDataFeedback = JSON.parse(savedDataFeedback);
 //* Оголошуємо callback функції
 function onFormSubmit(event) {
   event.preventDefault();
-  const savedDataFeedback = localStorage.getItem('feedback-form-state');
-  const parsedDataFeedback = JSON.parse(savedDataFeedback);
+  //   const savedDataFeedback = localStorage.getItem('feedback-form-state');
+  //   const parsedDataFeedback = JSON.parse(savedDataFeedback);
   if (parsedDataFeedback) {
     console.log('Submit - ', parsedDataFeedback);
     localStorage.removeItem('feedback-form-state');
