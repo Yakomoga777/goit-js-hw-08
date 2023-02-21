@@ -12,27 +12,29 @@
    зроби так, щоб час відтворення оновлювався у сховищі не частіше, ніж раз на секунду.
 */
 
-import lodash from 'lodash';
+// import lodash from 'lodash';
 // // import vimeo, { Player } from '@vimeo/player';
 //*Ініціалізація плеєєра
 import Player from '@vimeo/player';
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
-player.getVideoTitle().then(function (title) {
-  console.log('title:', title);
-});
+// player.getVideoTitle().then(function (title) {
+//   console.log('title:', title);
+// });
 
 const onPlaySetCrntTime = function (data) {
   //   data is an object containing properties specific to that event
-  localStorage.setItem('videoplayer-current-time', data);
-  //   const savedData = localStorage.getItem('videoplayer-current-time');
-  //   const parsedData = JSON.parse(savedData);
-  console.log(data);
+  localStorage.setItem(
+    'videoplayer-current-time',
+    JSON.stringify(data.seconds)
+  );
+  const savedData = localStorage.getItem('videoplayer-current-time');
+  const parsedData = JSON.parse(savedData);
+  //   console.log(parsedData);
   //   console.log('parsedData -', parsedData);
-  //   return parsedData;
+  return parsedData;
 };
-// const sec = onPlaySetCrntTime();
-// console.log(sec);
+
 player.on('timeupdate', onPlaySetCrntTime);
 // console.log(onPlaySetCrntTime());
