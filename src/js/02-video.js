@@ -11,53 +11,28 @@
 7. Додай до проекту бібліотеку lodash.throttle і
    зроби так, щоб час відтворення оновлювався у сховищі не частіше, ніж раз на секунду.
 */
-// import lodash from 'lodash';
+
+import lodash from 'lodash';
 // // import vimeo, { Player } from '@vimeo/player';
-// import Player from '@vimeo/player';
+//*Ініціалізація плеєєра
+import Player from '@vimeo/player';
+const iframe = document.querySelector('iframe');
+const player = new Player(iframe);
 
-// const iframe = document.querySelector('iframe');
+player.getVideoTitle().then(function (title) {
+  console.log('title:', title);
+});
 
-// const player = new Player(iframe);
-
-// player.getVideoTitle().then(function (title) {
-//   console.log('title:', title);
-// });
-
-// const play = player.on('play', function (data) {
-//   // console.log(seconds);
-
-//   console.log('play - ', localStorage.getItem('Obj'));
-//   console.log('play PARSE - ', string);
-
-//   console.log('play - ', data);
-// });
-
-// // player.on('pause', function (data) {
-// //   // console.log(seconds);
-// //   console.log('pause', data);
-// // });
-
-// player.on('pause', function (data) {
-//   // console.log(seconds);
-//   localStorage.setItem(
-//     'Obj',
-//     JSON.stringify({
-//       seconds: data.seconds,
-//       percent: data.percent,
-//       duration: data.duration,
-//     })
-//   );
-//   JSON.parse(
-//     localStorage.getItem(
-//       'Obj',
-//       JSON.stringify({
-//         seconds: data.seconds,
-//         percent: data.percent,
-//         duration: data.duration,
-//       })
-//     )
-//   );
-//   console.log('pause - ', localStorage.getItem('Obj'));
-//   console.log('pause - ', data);
-//   console.log('pause - ', localStorage);
-// });
+const onPlaySetCrntTime = function (data) {
+  //   data is an object containing properties specific to that event
+  localStorage.setItem('videoplayer-current-time', data);
+  const savedData = localStorage.getItem('videoplayer-current-time');
+  const parsedData = JSON.parse(savedData);
+  //   console.log(data);
+  console.log('parsedData -', parsedData);
+  return parsedData;
+};
+// const sec = onPlaySetCrntTime();
+// console.log(sec);
+player.on('timeupdate', onPlaySetCrntTime);
+console.log(onPlaySetCrntTime());

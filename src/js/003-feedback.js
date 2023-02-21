@@ -9,20 +9,19 @@ const refs = {
 //* 2 Додаємо слухачі подій
 refs.formEl.addEventListener('submit', onFormSubmit);
 refs.formEl.addEventListener('input', onFormInput);
-// refs.emailEl.addEventListener('input', onEmailInput);
-refs.textareaEl.addEventListener('input', onTextareaKeypress);
-// refs.textareaEl.addEventListener('click', onTextareaKeypress);
+// refs.textareaEl.addEventListener('input', onTextareaKeypress);
 
-//* 3 виводимо збережені і розпарсені дані зі сховища в окремі змінні
-const savedDataFeedback = localStorage.getItem('feedback-form-state');
-const parsedDataFeedback = JSON.parse(savedDataFeedback);
+// //* 3 виводимо збережені і розпарсені дані зі сховища в окремі змінні
+// const savedDataFeedback = localStorage.getItem('feedback-form-state');
+// const parsedDataFeedback = JSON.parse(savedDataFeedback);
 // console.log(parsedDataFeedback);
 
 //* Оголошуємо callback функції
 function onFormSubmit(event) {
   event.preventDefault();
-  // const savedDataFeedback = localStorage.getItem('feedback-form-state');
-  // const parsedDataFeedback = JSON.parse(savedDataFeedback);
+  const savedDataFeedback = localStorage.getItem('feedback-form-state');
+  const parsedDataFeedback = JSON.parse(savedDataFeedback);
+  // console.log(parsedDataFeedback);
   if (parsedDataFeedback) {
     console.log('Submit - ', parsedDataFeedback);
     localStorage.removeItem('feedback-form-state');
@@ -46,9 +45,14 @@ function onFormInput(event) {
 
 fillFields();
 function fillFields() {
+  const savedDataFeedback = localStorage.getItem('feedback-form-state');
+  const parsedDataFeedback = JSON.parse(savedDataFeedback);
   if (parsedDataFeedback) {
     refs.emailEl.value = parsedDataFeedback.email;
     refs.textareaEl.value = parsedDataFeedback.message;
+
+    console.log(parsedDataFeedback.email);
+    console.log(parsedDataFeedback.message);
   }
 }
 
