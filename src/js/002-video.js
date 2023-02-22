@@ -19,40 +19,35 @@ import Player from '@vimeo/player';
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
-// player.getVideoTitle().then(function (title) {
-//   console.log('title:', title);
-// });
+player.getVideoTitle().then(function (title) {
+  console.log('title:', title);
+});
 
-const onPlaySetCrntTime = function (data) {
-  //   data is an object containing properties specific to that event
-  localStorage.setItem(
-    'videoplayer-current-time',
-    JSON.stringify(data.seconds)
-  );
-  const savedData = localStorage.getItem('videoplayer-current-time');
-  const parsedData = JSON.parse(savedData);
-  //   console.log(parsedData);
-  //   console.log('parsedData -', parsedData);
-  return parsedData;
+const onPlaySetCrntTime = function ({ seconds }) {
+  localStorage.setItem('videoplayer-current-time', seconds);
 };
 
 player.on('timeupdate', onPlaySetCrntTime);
-// console.log(onPlaySetCrntTime());
+// console.log(player.on('timeupdate', onPlaySetCrntTime));
 
-//* Метод для встановелення часу для початку відтворювання
-// player
-//   .setCurrentTime(30.456)
-//   .then(function (seconds) {
-//     // seconds = the actual time that the player seeked to
-//   })
-//   .catch(function (error) {
-//     switch (error.name) {
-//       case 'RangeError':
-//         // the time was less than 0 or greater than the video’s duration
-//         break;
+const getValueFromLocStorage = function () {
+  return localStorage.getItem('videoplayer-current-time');
+};
 
-//       default:
-//         // some other error occurred
-//         break;
-//     }
-//   });
+// //* Метод для встановелення часу для початку відтворювання
+player
+  .setCurrentTime(getValueFromLocStorage())
+  .then(function (seconds) {
+    // seconds = the actual time that the player seeked to
+  })
+  .catch(function (error) {
+    switch (error.name) {
+      case 'RangeError':
+        // the time was less than 0 or greater than the video’s duration
+        break;
+
+      default:
+        // some other error occurred
+        break;
+    }
+  });
