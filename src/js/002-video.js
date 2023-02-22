@@ -12,8 +12,9 @@
    зроби так, щоб час відтворення оновлювався у сховищі не частіше, ніж раз на секунду.
 */
 
-// import lodash from 'lodash';
+import _ from 'lodash';
 // // import vimeo, { Player } from '@vimeo/player';
+
 //*Ініціалізація плеєєра
 import Player from '@vimeo/player';
 const iframe = document.querySelector('iframe');
@@ -27,13 +28,14 @@ const onPlaySetCrntTime = function ({ seconds }) {
   localStorage.setItem('videoplayer-current-time', seconds);
 };
 
-player.on('timeupdate', onPlaySetCrntTime);
+player.on('timeupdate', _.throttle(onPlaySetCrntTime, 1000));
 // console.log(player.on('timeupdate', onPlaySetCrntTime));
 
 const getValueFromLocStorage = function () {
   return localStorage.getItem('videoplayer-current-time');
 };
 
+console.log(getValueFromLocStorage());
 // //* Метод для встановелення часу для початку відтворювання
 player
   .setCurrentTime(getValueFromLocStorage())

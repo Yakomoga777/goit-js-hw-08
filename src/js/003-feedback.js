@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 //*1 Створюємо об"єкт з посиланнями на DOM
 const refs = {
   formEl: document.querySelector('.feedback-form'),
@@ -8,8 +10,7 @@ const refs = {
 
 //* 2 Додаємо слухачі подій
 refs.formEl.addEventListener('submit', onFormSubmit);
-refs.formEl.addEventListener('input', onFormInput);
-// refs.textareaEl.addEventListener('input', onTextareaKeypress);
+refs.formEl.addEventListener('input', _.throttle(onFormInput, 500));
 
 // //* 3 виводимо збережені і розпарсені дані зі сховища в окремі змінні
 // const savedDataFeedback = localStorage.getItem('feedback-form-state');
@@ -54,24 +55,4 @@ function fillFields() {
     console.log(parsedDataFeedback.email);
     console.log(parsedDataFeedback.message);
   }
-}
-
-function onEmailInput(event) {
-  // console.log(event);
-}
-
-function onTextareaKeypress(event) {
-  //   const message = event.target.value;
-  //   console.log(message);
-  //   localStorage.setItem('feedback-msg', message);
-  //   console.log(event);
-}
-
-function populateTextarea(event) {
-  //   event.currentTarget.value = localStorage.getItem('feedback-msg');
-  //   const saveMessage = localStorage.getItem('feedback-msg');
-  //   if (saveMessage) {
-  //     console.log(saveMessage);
-  //     refs.textareaEl.value = saveMessage;
-  //   }
 }
