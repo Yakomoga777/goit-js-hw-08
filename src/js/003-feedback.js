@@ -52,7 +52,7 @@ function fillFields() {
     refs.emailEl.value = parsedDataFeedback.email;
     refs.textareaEl.value = parsedDataFeedback.message;
 
-    console.log(parsedDataFeedback.email);
-    console.log(parsedDataFeedback.message);
+    // console.log(parsedDataFeedback.email);
+    // console.log(parsedDataFeedback.message);
   }
 }
